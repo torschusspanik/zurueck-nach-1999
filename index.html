@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0755a7">
+  <meta name="description" content="Ein kleines 8-bit-Promo-Spiel von Torschusspanik!">
+  <title>Gut gemeint aber grandios gescheitert – Torschusspanik!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <section id="start-screen" class="screen active" aria-label="Startbildschirm">
+      <div class="cover-wrap">
+        <img id="cover-image" src="assets/cover.png" alt="Torschusspanik! – Gut gemeint aber grandios gescheitert">
+        <!-- Transparent hit area aligned with the OK button in the supplied cover artwork -->
+        <button id="cover-ok" class="cover-hotspot" aria-label="OK – Spiel starten"></button>
+      </div>
+    </section>
+
+    <section id="instructions-screen" class="screen panel-screen" aria-labelledby="instructions-title">
+      <div class="retro-panel instructions-panel">
+        <div class="titlebar"><span id="instructions-title">So funktioniert's</span><span class="tiny-window-mark">×</span></div>
+        <div class="panel-content">
+          <h1>Zurück nach 1999!</h1>
+          <p>Der Flamingo will zurück ins Jahr 1999. Sammle so viele CDs wie möglich – und weiche den herunterfallenden <strong>L</strong>s aus!</p>
+          <ul>
+            <li><strong>PC:</strong> Pfeiltasten ← →</li>
+            <li><strong>Handy:</strong> Halte die Pfeile gedrückt.</li>
+            <li><strong>CDs</strong> bringen Punkte.</li>
+            <li><strong>L</strong> bedeutet: Game over.</li>
+          </ul>
+          <p class="small-note">Je länger du durchhältst, desto schneller wird's. Viel Glück. Du wirst es brauchen. Nur die Besten schaffen es, die Teleportation ins Jahr 1999 einzuleiten!</p>
+          <button id="start-game" class="retro-button">Los geht's!</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="game-screen" class="screen game-screen" aria-label="Spiel">
+      <header class="game-hud">
+        <div class="hud-label">CDs: <span id="score">0</span></div>
+        <div class="hud-label">ZEIT: <span id="elapsed">0</span>s</div>
+      </header>
+      <div id="game-world" class="game-world">
+        <!-- <div class="pixel-sun" aria-hidden="true"></div> -->
+        <div class="ground" aria-hidden="true"></div>
+        <div id="player" class="player" aria-label="Flamingo">
+          <img src="assets/flamingo.png" alt="">
+        </div>
+        <div id="objects-layer"></div>
+      </div>
+      <footer class="touch-controls" aria-label="Touch-Steuerung">
+        <button id="left-control" class="touch-button" aria-label="Nach links">◀</button>
+        <span>BEWEGEN</span>
+        <button id="right-control" class="touch-button" aria-label="Nach rechts">▶</button>
+      </footer>
+    </section>
+
+    <section id="gameover-screen" class="screen panel-screen" aria-labelledby="gameover-title">
+      <div class="retro-panel gameover-panel">
+        <div class="titlebar"><span id="gameover-title">GAME OVER</span><span class="tiny-window-mark">×</span></div>
+        <div class="panel-content gameover-content">
+          <div class="error-row"><span class="error-icon">×</span><div><p class="failed">Das war gut gemeint, ist aber grandios gescheitert.</p><p>Gesammelte CDs: <strong id="final-score">0</strong></p></div></div>
+          <p id="music-status" class="small-note">Der Refrain läuft …</p>
+          <a id="spotify-fail" class="retro-button spotify-button" href="https://open.spotify.com/PLACEHOLDER-SONG-LINK" target="_blank" rel="noopener noreferrer">Auf Spotify anhören</a>
+          <button id="restart-game" class="retro-button">Nochmal versuchen</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="victory-screen" class="screen panel-screen" aria-labelledby="victory-title">
+      <div class="retro-panel victory-panel">
+        <div class="titlebar"><span id="victory-title">ZEITREISE.EXE</span><span class="tiny-window-mark">×</span></div>
+        <div class="panel-content gameover-content">
+          <div id="teleport-success">
+            <h1>99 CDs! Geschafft!</h1>
+            <p>Die Zeitreise ins Jahr 1999 wird eingeleitet.</p>
+            <p class="secret-line">Das muss unter uns bleiben.</p>
+            <p class="small-note">Teleportation läuft …</p>
+            <div class="loading-bar"><span></span></div>
+          </div>
+          <div id="teleport-failure" hidden>
+            <div class="error-row"><span class="error-icon">×</span><div><p class="failed">ZEITREISE FEHLGESCHLAGEN</p><p>Es gibt kein Zurück!</p></div></div>
+            <p id="teleport-music-status" class="small-note">Der Zeitreise-Soundtrack läuft …</p>
+          </div>
+          <a id="spotify-victory" class="retro-button spotify-button" href="https://open.spotify.com/PLACEHOLDER-ALBUM-LINK" target="_blank" rel="noopener noreferrer">Das Album auf Spotify</a>
+          <button id="restart-after-victory" class="retro-button">Nochmal versuchen</button>
+        </div>
+      </div>
+    </section>
+
+    <audio id="background-audio" src="assets/background-music.mp3" loop preload="auto"></audio>
+    <audio id="chorus-audio" src="assets/chorus.mp3" preload="auto"></audio>
+    <audio id="teleport-audio" src="assets/es-gibt-kein-zurueck.mp3" preload="auto"></audio>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

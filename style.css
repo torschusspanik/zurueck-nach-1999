@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --blue: #0755a7;
+  --deep-blue: #003b83;
+  --cream: #fff0c9;
+  --panel: #d4d0c8;
+  --pink: #f4368c;
+  --red: #f01722;
+  --ink: #151515;
+  font-family: "Press Start 2P", "Courier New", monospace;
+  color: var(--cream);
+  background: #07111f;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { min-height: 100svh; display: grid; place-items: center; background: #050b14; }
+button { font: inherit; cursor: pointer; touch-action: manipulation; }
+#app { width: min(100vw, 1000px); min-height: 100svh; display: grid; place-items: center; overflow: hidden; }
+.screen { display: none; width: 100%; min-height: 100svh; align-items: center; justify-content: center; padding: clamp(12px, 3vw, 28px); }
+.screen.active { display: flex; }
+#start-screen { padding: 0; background: #0755a7; }
+.cover-wrap { position: relative; width: min(100vw, 100svh, 1000px); aspect-ratio: 1; line-height: 0; }
+#cover-image { display: block; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.cover-hotspot { position: absolute; left: 41.5%; top: 72.4%; width: 17.4%; height: 6.5%; border: 0; background: transparent; border-radius: 2px; }
+.cover-hotspot:focus-visible { outline: 3px dashed white; outline-offset: 2px; }
+.panel-screen { background: radial-gradient(circle at center, #1268c1, var(--deep-blue)); }
+.retro-panel { width: min(100%, 680px); color: #111; background: var(--panel); border: 4px solid; border-color: #fff #333 #333 #fff; box-shadow: 5px 5px 0 #001d43; image-rendering: pixelated; }
+.titlebar { min-height: 44px; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 12px; color: white; background: linear-gradient(90deg, #002f8e, #176bd0); font-size: clamp(10px, 2vw, 15px); }
+.tiny-window-mark { display: grid; place-items: center; width: 28px; height: 26px; background: var(--panel); border: 2px outset white; color: #111; font: bold 20px Arial, sans-serif; }
+.panel-content { padding: clamp(18px, 4vw, 36px); font-size: clamp(9px, 1.5vw, 12px); line-height: 1.9; }
+h1 { color: #073f89; font-size: clamp(13px, 2.8vw, 22px); line-height: 1.6; margin: 0 0 20px; }
+p { margin: 0 0 18px; }
+ul { padding-left: 20px; margin: 16px 0 20px; }
+li { margin: 12px 0; }
+.small-note { font-size: clamp(8px, 1.2vw, 10px); line-height: 1.8; color: #424242; }
+.retro-button { display: block; margin: 22px auto 0; padding: 15px 20px; background: #d4d0c8; border: 3px outset #fff; color: #111; font-size: clamp(9px, 1.5vw, 12px); box-shadow: 2px 2px 0 #555; }
+.retro-button:active { border-style: inset; transform: translate(1px, 1px); }
+.game-screen { padding: 0; display: none; flex-direction: column; justify-content: stretch; background: var(--blue); }
+.game-screen.active { display: flex; }
+.game-hud { width: 100%; display: flex; justify-content: space-between; padding: 14px 16px; background: #003b83; font-size: clamp(9px, 2.5vw, 14px); }
+.game-world { position: relative; flex: 1; width: 100%; min-height: 360px; overflow: hidden; background: linear-gradient(#0755a7 0%, #0c67b9 78%, #164c85 100%); }
+.pixel-sun { position: absolute; right: 12%; top: 8%; width: 48px; height: 48px; background: #ffdc73; box-shadow: 0 0 0 8px rgba(255,220,115,.12); image-rendering: pixelated; }
+.ground { position: absolute; bottom: 0; height: 14px; width: 100%; background: repeating-linear-gradient(90deg, #183b3b 0 16px, #24504b 16px 32px); border-top: 4px solid #f2d8a2; }
+.player { position: absolute; bottom: 18px; left: 50%; width: 64px; height: 80px; transform: translateX(-50%); z-index: 3; }
+.player img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.falling-object { position: absolute; top: -50px; z-index: 2; display: grid; place-items: center; user-select: none; }
+.cd-object { width: 34px; height: 34px; border-radius: 50%; border: 4px solid #f8e9bf; background: conic-gradient(#f6a4c9, #fff3d4, #5dd8f3, #f9e99a, #f6a4c9); box-shadow: 0 0 0 3px #184d8d, inset 0 0 0 7px #2b75ad; }
+.cd-object::after { content: ""; width: 7px; height: 7px; border: 2px solid #174b7b; background: #fff1c7; border-radius: 50%; }
+.l-object { color: red; font-size: 30px; text-shadow: 3px 3px 0 #8c1b60; }
+.touch-controls { display: flex; align-items: center; justify-content: center; gap: clamp(20px, 10vw, 80px); padding: 10px 16px max(12px, env(safe-area-inset-bottom)); background: #003b83; font-size: 9px; }
+.touch-button { width: 76px; height: 54px; color: #fff0c9; background: #155ca4; border: 3px outset #8bb6e2; font-size: 22px; }
+.touch-button:active, .touch-button.pressed { background: #f4368c; border-style: inset; }
+.gameover-content { padding-top: 24px; }
+.error-row { display: flex; align-items: center; gap: 18px; }
+.error-icon { flex: 0 0 58px; width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; background: #ed111b; border: 3px solid #a30000; color: white; font: bold 44px Arial, sans-serif; }
+.failed { font-size: clamp(10px, 2vw, 14px); line-height: 1.8; }
+@media (min-width: 760px) {
+  #app { min-height: 100vh; }
+  .game-screen { min-height: min(92vh, 900px); max-width: 600px; border: 5px solid #c8d8e9; box-shadow: 0 0 0 5px #001b40; }
+  .game-world { min-height: 460px; }
+  .touch-controls { padding-bottom: 14px; }
+}
+@media (max-width: 420px) {
+  .cover-wrap { width: min(100vw, 100svh); }
+  .panel-content { padding: 18px; }
+  .retro-panel { border-width: 3px; }
+  .touch-button { width: 86px; height: 58px; }
+}
+
+/* Extra UI for the 99-CD time-travel ending */
+.spotify-button { display: block; width: fit-content; text-align: center; text-decoration: none; }
+.secret-line { color: #073f89; font-weight: bold; font-size: clamp(11px, 2vw, 15px); }
+.loading-bar { height: 22px; padding: 3px; margin: 20px 0 10px; border: 2px inset #fff; background: #aaa; }
+.loading-bar span { display: block; height: 100%; width: 100%; background: repeating-linear-gradient(90deg, #f4368c 0 14px, #0755a7 14px 28px); animation: teleport-progress 2.3s steps(8, end) forwards; }
+#teleport-failure .failed { color: #b00000; }
+#teleport-failure { animation: glitch-in .25s steps(2, end) 3; }
+@keyframes teleport-progress { from { width: 0; } to { width: 100%; } }
+@keyframes glitch-in { 0%, 100% { transform: translateX(0); filter: none; } 25% { transform: translateX(-4px); filter: hue-rotate(80deg); } 75% { transform: translateX(4px); filter: hue-rotate(-80deg); } }
